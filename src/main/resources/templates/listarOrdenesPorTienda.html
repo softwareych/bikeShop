@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="layout/plantilla :: head">
+<title>Listado de Ordenes por Tienda</title>
+<body>
+
+	<header th:replace="layout/plantilla :: header"></header>
+	
+	<section th:fragment="listarOrdenesPorTienda" id="ordenesTienda">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9">
+					<div class="card">
+						<div class="card-header">
+							<h4>[[#{customers.titulo-listaOrdenTienda}]]</h4>
+						</div>
+
+						<div th:if="${listarOrdenesPorTienda != null and !listarOrdenesPorTienda.empty}">
+							<table class="table table-striped">
+								<thead class="thead-dark">
+									<tr>
+								 		<th th:text="#{ordenes.tienda}"></th>
+										<th th:text="#{ordenes.cantidadOrdenes}"></th>
+								
+								
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr th:each="ordenes , contador : ${listarOrdenesPorTienda}">
+									<td>[[${ordenes.orderDate}]]</td>
+							
+									<td><p th:each="stores: ${listarOrdenesPorTienda.stores}" th:text="${stores.storeName} + ' ' +  ${stores.city}"></p></td>
+						
+									</tr>
+
+
+								</tbody>
+							</table>
+						</div>
+
+						<div class="text-center p-2"
+							th:if="${listarOrdenesPorTienda == null or listarOrdenesPorTienda.empty}">
+							<span th:text="#{customers.msj-lista}">Lista vacía</span>
+						</div>
+					</div>
+				</div>
+
+			
+
+
+
+					
+				</div>
+			</div>
+	
+	</section>
+	
+			<footer th:replace="layout/plantilla :: footer"></footer>
+</body>
+</html>

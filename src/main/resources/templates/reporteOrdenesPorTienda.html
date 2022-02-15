@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="layout/plantilla :: head">
+<title>Reporte de Ordenes por Tienda</title>
+<body>
+
+	<header th:replace="layout/plantilla :: header"></header>
+
+<br>
+
+	<div class="card mx-auto" style="width: 900px;">
+		<H1 class="text-center">Reporte de Ordenes por Tienda</H1>
+
+<br>
+
+
+		<form action="crear-alumno" method="GET" class="row g-6">
+
+			<div class="col-auto">
+				<label for="tienda" class="form-label">Tienda</label> <select
+					class="form-control" id="tienda" name="tienda">
+					<option selected>Seleccione...</option>
+					<option th:each="tienda : ${tienda}" th:value="${tienda.storeId}"
+						th:text="${tienda.storeName}"></option>
+				</select>
+
+			</div>
+
+			<div class="col-auto">
+				<label for="estado" class="form-label">Estado</label> <select
+					class="form-select" aria-label="estado" name="estado" id="estado">
+					<option selected>Seleccionar...</option>
+					<option value="1">Pendiente</option>
+					<option value="2">En Proceso</option>
+					<option value="3">Rechazado</option>
+					<option value="4">Completado</option>
+				</select>
+
+			</div>
+
+			<div class="col-auto">
+				<label for="fechaOrdenDesde" class="form-label">Fecha Orden
+					(Desde)</label> <input class="form-control" type="date"
+					placeholder="fechaOrdenDesde" aria-label="fechaOrdenDesde"
+					name="fechaOrdenDesde">
+
+			</div>
+
+			<div class="col-auto">
+				<label for="fechaOrdenHasta" class="form-label">Fecha Orden
+					(Hasta)</label> <input class="form-control" type="date"
+					placeholder="fechaOrdenHasta" aria-label="fechaOrdenHasta"
+					name="fechaOrdenHasta">
+
+			</div>
+			<div class="col-auto">
+				<button type="submit" class="btn btn-primary mb-3">Buscar</button>
+			</div>
+		</form>
+	</div>
+
+<br>
+
+	<section th:fragment="listarCustomers" id="customers">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4>Ordenes</h4>
+						</div>
+
+						<div th:if="${listarCustomers != null and !listarCustomers.empty}">
+							<table class="table">
+								<thead >
+									<tr>
+										<th th:text="#{customers.id}"></th>
+										<th>ID Orden</th>
+										<th>Vendedor</th>
+										<th>Cliente</th>
+										<th>Fecha Orden</th>
+										<th>Fecha Requerida</th>
+										<th>Estado</th>
+										<th>Acción</th>
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr th:each="customers , contador : ${listarCustomers}">
+
+										<td>[[${customers.customerId}]]</td>
+										<td>[[${customers.lastName}]]</td>
+										<td>[[${customers.firstName}]]</td>
+										<td>[[${customers.phone}]]</td>
+
+										<td>[[${customers.email}]]</td>
+										<td>[[${customers.street}]]</td>
+										<td>[[${customers.city}]]</td>
+										<td>[[${customers.state}]]</td>
+					<td><a
+						th:href="@{/orden/buscarId(customerNumber=${orden.customer.customerNumber})}"><button
+								class="btn btn-primary">Ver</button></a></td>
+									</tr>
+
+
+								</tbody>
+							</table>
+						</div>
+
+						<div class="text-center p-2"
+							th:if="${listarCustomers == null or listarCustomers.empty}">
+							<span th:text="#{customers.msj-lista}">Lista vacía</span>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+
+			</div>
+		</div>
+
+	</section>
+
+	<footer th:replace="layout/plantilla :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+
+<head th:replace="layout/plantilla :: head">
+
+<title>Listado de Clientes por Email</title>
+<body>
+	<header th:replace="layout/plantilla :: header"></header>
+
+
+	
+	<section th:fragment="listarCustomersDominio" id="customersDominio">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4>[[#{customers.titulo-listaDominio}]]</h4>
+						</div>
+
+						<div th:if="${listarCustomersDominio != null and !listarCustomersDominio.empty}">
+							<table class="table table-striped">
+								<thead class="thead-dark">
+									<tr>
+										<th th:text="#{customers.id}"></th>
+										<th>[[#{customers.apellido}]]</th>
+										<th>[[#{customers.nombre}]]</th>
+										<th>[[#{customers.telefono}]]</th>
+										<th>[[#{customers.email}]]</th>
+										<th>[[#{customers.calle}]]</th>
+										<th>[[#{customers.ciudad}]]</th>										
+										<th>[[#{customers.estado}]]</th>
+										<th>[[#{customers.zip}]]</th>
+								
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr th:each="customersDom , contador : ${listarCustomersDominio}">
+										
+										<td>[[${customersDom.customerId}]]</td>
+										<td>[[${customersDom.lastName}]]</td>
+										<td>[[${customersDom.firstName}]]</td>
+										<td>[[${customersDom.phone}]]</td>
+										
+										<td>[[${customersDom.email}]]</td>
+										<td>[[${customersDom.street}]]</td>
+										<td>[[${customersDom.city}]]</td>
+										<td>[[${customersDom.state}]]</td>
+										<td>[[${customersDom.zipCode}]]</td>
+									</tr>
+
+
+								</tbody>
+							</table>
+						</div>
+
+						<div class="text-center p-2"
+							th:if="${listarCustomersDominio == null or listarCustomersDominio.empty}">
+							<span th:text="#{customersDom.msj-lista}">Lista vacía</span>
+						</div>
+					</div>
+				</div>
+
+			
+				</div>
+			</div>
+	
+	</section>
+	
+		<footer th:replace="layout/plantilla :: footer"></footer>
+</body>
+</html>
